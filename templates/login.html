@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sysbank Digital - Iniciar Sesión</title>
+    <link rel="stylesheet" href="static/login.css">
+    <link rel="stylesheet" href="static/animations.css">
+</head>
+<body>
+
+<!-- Panel Izquierdo -->
+    <div class="left-panel">
+        <div class="brand-top">SYSBANK DIGITAL</div>
+        <div class="logo-box">
+            <div class="logo-circle">
+                <img src="{{ url_for('static', filename='Sysbank_Logo.png') }}" alt="Logo Sysbank">
+            </div>
+            <h2>SYSBANK</h2>
+            <p style="letter-spacing: 4px; font-size: 12px; color: #888; margin-top: 5px;">DIGITAL</p>
+        </div>
+    </div>
+
+    <!-- Panel Derecho -->
+    <div class="right-panel">
+        <div class="form-container">
+            <h2>Bienvenido</h2>
+            <form action="/query" method="GET">
+                <div class="input-group">
+                    <input type="email" placeholder="Correo electrónico" required>
+                </div>
+                <div class="input-group">
+                    <input type="password" placeholder="Contraseña" required>
+                </div>
+                <button type="submit" class="btn-submit">Iniciar sesión</button>
+            </form>
+            <div class="form-links">
+                <a href="#">Recordar contraseña</a>
+                <a href="#">¿Todavía no tienes una cuenta? Regístrate</a>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

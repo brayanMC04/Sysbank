@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sysbank Digital - Panel de Control</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="static/toast.css">
+    <link rel="stylesheet" href="static/dashboard.css">
+    <link rel="stylesheet" href="static/animations.css">
+</head>
+<body>
+
+    <!-- Barra de Navegación -->
+    <div class="navbar">
+        <div class="nav-brand">SYSBANK DIGITAL</div>
+        <div class="nav-links">
+            <a href="/dashboard">Dashboard</a>
+            <a href="/transaccion">Nueva Transacción</a>
+            <a href="/query">Consola SQL</a>
+            <a href="/descargar-extracto" class="btn-descargar">📥 Descargar Extracto PDF</a>
+            <a href="/">Cerrar Sesión</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2 class="welcome-title">Bienvenido a tu Panel Financiero</h2>
+
+        <!-- Gráfico Financiero -->
+        <div class="section-box">
+            <h3>Flujo de Transacciones Recientes</h3>
+            <div style="width: 100%; height: 280px; position: relative;">
+                <canvas id="financeChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Tarjeta Bonita con el Saldo Total -->
+        <div class="card-balance">
+            <h3>Saldo Total Disponible</h3>
+            <div class="amount">${{ "{:,.2f}".format(saldo_total or 0) }}</div>
+        </div>
+
+        <!-- Tabla de Cuentas -->
+        <div class="section-box">
+            <h3>Tus Cuentas Bancarias</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Número de Cuenta</th>
+                        <th>Saldo</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for cuenta in cuentas %}
+                        <tr>
+                            <td><strong>{{ cuenta[0] }}</strong></td>
+                            <td>${{ "{:,.2f}".format(cuenta[1] or 0) }}</td>
+                            <td><span class="badge badge-activo">{{ cuenta[2] }}</span></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Tabla de Transacciones Recientes -->
+        <div class="section-box">
+            <h3>Últimos Movimientos</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Cuenta Origen</th>
+                        <th>Tipo</th>
+                        <th>Valor</th>
+                        <th>Fecha</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for mov in movimientos %}
+                        <tr>
+                            <!-- Como pasamos diccionarios desde app.py, los leemos por clave o ajustamos a tuplas -->
+                            <td>{{ mov.id if mov.id is defined else mov[0] }}</td>
+                            <td>{{ mov.cuenta if mov.cuenta is defined else mov[1] }}</td>
+                            <td><strong>{{ mov.tipo if mov.tipo is defined else mov[2] }}</strong></td>
+                            <td>${{ "{:,.2f}".format(mov.valor if mov.valor is defined else mov[3]) }}</td>
+                            <td>{{ mov.fecha if mov.fecha is defined else mov[4] }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- SCRIPT DE CHART.JS COLOCADO AL FINAL (Para que el canvas ya exista) -->
+    <script>
+        const canvasElement = document.getElementById('financeChart');
+        if (canvasElement) {
+            const ctx = canvasElement.getContext('2d');
+            
+            const movimientosRaw = JSON.parse('{{ movimientos | tojson | safe }}');
+            
+            // Adaptamos según si llega como diccionario o lista
+            const movimientosData = movimientosRaw.map(mov => {
+                return {
+                    fecha: mov.fecha !== undefined ? mov.fecha : mov[4],
+                    valor: mov.valor !== undefined ? mov.valor : mov[3]
+                };
+            }).reverse();
+
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: movimientosData.map(m => m.fecha),
+                    datasets: [{
+                        label: 'Monto ($)',
+                        data: movimientosData.map(m => m.valor),
+                        borderColor: '#00d2ff',
+                        backgroundColor: 'rgba(0, 210, 255, 0.1)',
+                        borderWidth: 3,
+                        fill: true,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { 
+                        legend: { display: false } 
+                    },
+                    scales: {
+                        y: {ticks: { color: '#00f0ff' },
+                            grid: { color: '#edf2f7' } },
+                        x: {ticks: { color: '#ffff' },
+                            grid: { display: false } }
+                    }
+                }
+            });
+        }
+    </script>
+
+</body>
+</html>

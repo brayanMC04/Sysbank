@@ -1,0 +1,261 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+:root {
+    --bg-deep: #030712;
+    --card-bg: rgba(15, 23, 42, 0.85);
+    --input-bg: rgba(2, 6, 23, 0.8);
+    --neon-cyan: #00f0ff;
+    --neon-purple: #7000ff;
+    --neon-green: #10b981; /* Verde elegante para Excel */
+    --text-light: #f8fafc;
+    --text-muted: #94a3b8;
+}
+
+/* --- FORZAR FONDO OSCURO EN TODO EL DOCUMENTO --- */
+html, body {
+    background-color: var(--bg-deep) !important;
+    background-image: 
+        radial-gradient(circle at 50% 0%, rgba(112, 0, 255, 0.18) 0%, transparent 60%),
+        linear-gradient(to right, rgba(255,255,255,0.02) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255,255,255,0.02) 1px, transparent 1px) !important;
+    background-size: 100% 100%, 40px 40px, 40px 40px;
+    color: var(--text-light) !important;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+}
+
+/* --- BARRA DE NAVEGACIÓN --- */
+.navbar {
+    background: rgba(3, 7, 18, 0.9);
+    backdrop-filter: blur(20px);
+    border-bottom: 2px solid rgba(0, 240, 255, 0.2);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+}
+
+.nav-brand {
+    font-size: 24px;
+    font-weight: 800;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    background: linear-gradient(135deg, #00f0ff 0%, #ffffff 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.nav-links a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+    padding: 10px 16px;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+}
+
+.nav-links a:hover {
+    color: var(--neon-cyan);
+    background: rgba(0, 240, 255, 0.05);
+    border-color: rgba(0, 240, 255, 0.3);
+    box-shadow: 0 0 15px rgba(0, 240, 255, 0.2);
+}
+
+/* --- CONTENEDOR PRINCIPAL --- */
+.container {
+    max-width: 850px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.welcome-title, h1, h2 {
+    font-size: 24px;
+    font-weight: 800;
+    margin-bottom: 20px;
+    color: #fff;
+}
+
+/* --- CAJA ESTILO TARJETA FLOTANTE --- */
+.section-box {
+    background: var(--card-bg);
+    backdrop-filter: blur(25px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 24px;
+    padding: 35px;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.7), 
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    position: relative;
+    transition: all 0.3s ease;
+    margin-bottom: 30px;
+}
+
+.section-box:hover {
+    border-color: rgba(0, 240, 255, 0.4);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8), 
+                0 0 30px rgba(0, 240, 255, 0.15);
+}
+
+/* --- ETIQUETAS Y CAMPOS CON EFECTO HUNDIDO --- */
+form label, .query-label, label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--text-muted);
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+}
+
+textarea, select, input[type="number"], input[type="text"], input[type="date"] {
+    width: 100%;
+    background-color: var(--input-bg);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 14px;
+    padding: 16px 18px;
+    color: #fff;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 14px;
+    box-sizing: border-box;
+    box-shadow: inset 3px 3px 6px rgba(0, 0, 0, 0.6), 
+                inset -2px -2px 4px rgba(255, 255, 255, 0.03);
+    transition: all 0.3s ease;
+    margin-bottom: 22px;
+}
+
+textarea:focus, select:focus, input:focus {
+    outline: none;
+    border-color: var(--neon-cyan);
+    box-shadow: inset 4px 4px 8px rgba(0, 0, 0, 0.8),
+                0 0 15px rgba(0, 240, 255, 0.3);
+    background: rgba(3, 7, 18, 0.95);
+}
+
+select option {
+    background-color: #0b1329;
+    color: #fff;
+    padding: 12px;
+}
+
+/* --- CONTENEDOR DE BOTONES RÁPIDOS EN FILA (HORIZONTAL) --- */
+.button-group, div > button, form + div, .acciones-rapidas, div:has(> .btn-accion, > button) {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+/* --- ESTILO PARA BOTONES DE ACCIÓN RÁPIDA Y EJECUTAR --- */
+button, 
+input[type="submit"], 
+.btn-enviar, 
+.btn-query,
+.btn-accion {
+    background: linear-gradient(135deg, #00f0ff 0%, #7000ff 100%);
+    color: #ffffff;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-weight: 700;
+    font-size: 12px;
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    box-shadow: 0 0 15px rgba(0, 240, 255, 0.25);
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    text-decoration: none;
+    width: auto !important; /* Evita que se estiren vertical u horizontalmente */
+}
+
+button:hover, 
+input[type="submit"]:hover, 
+.btn-enviar:hover, 
+.btn-query:hover,
+.btn-accion:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 25px rgba(0, 240, 255, 0.6);
+    filter: brightness(1.2);
+}
+
+/* --- BOTÓN ESPECÍFICO PARA DESCARGAR EN EXCEL --- */
+.btn-excel, 
+a[href*="excel"], 
+a[href*="export"], 
+.btn-descargar-excel {
+    background: linear-gradient(135deg, #10b981 0%, #047857 100%) !important;
+    color: #ffffff !important;
+    padding: 12px 24px !important;
+    border-radius: 30px !important;
+    font-weight: 700 !important;
+    font-size: 13px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    box-shadow: 0 0 20px rgba(16, 185, 129, 0.4) !important;
+    text-decoration: none !important;
+    text-transform: uppercase !important;
+    letter-spacing: 1px !important;
+    transition: all 0.3s ease !important;
+    border: none !important;
+    margin-top: 15px;
+}
+
+.btn-excel:hover, 
+a[href*="excel"]:hover, 
+a[href*="export"]:hover, 
+.btn-descargar-excel:hover {
+    transform: translateY(-2px) scale(1.02) !important;
+    box-shadow: 0 0 30px rgba(16, 185, 129, 0.7) !important;
+    filter: brightness(1.15) !important;
+}
+
+/* --- ESTILOS PARA TABLAS DE RESULTADOS --- */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 25px;
+    background: var(--input-bg);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+th, td {
+    padding: 14px 18px;
+    text-align: left;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    font-size: 13px;
+}
+
+th {
+    background: rgba(0, 240, 255, 0.08);
+    color: var(--neon-cyan);
+    text-transform: uppercase;
+    font-size: 11px;
+    letter-spacing: 1px;
+}
+
+tr:hover {
+    background: rgba(255, 255, 255, 0.02);
+}

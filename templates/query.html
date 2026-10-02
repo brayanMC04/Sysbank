@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sysbank Digital - Consola Query</title>
+    <link rel="stylesheet" href="static/query.css">
+    <link rel="stylesheet" href="static/animations.css">
+</head>
+<body>
+
+    <!-- Barra de Navegación -->
+    <div class="navbar">
+        <div class="nav-brand">SYSBANK DIGITAL</div>
+        <div class="nav-links">
+            <a href="/dashboard">Dashboard</a>
+            <a href="/transaccion">Nueva Transacción</a>
+            <a href="/query">Consola SQL</a>
+            <a href="/">Cerrar Sesión</a>
+        </div>
+    </div>
+
+    <h1>Sistema Bancario Digital</h1>
+    <h3>Ingresar Query</h3>
+
+    <div class="query-box">
+        <!-- Botones de acceso rápido para consultas comunes -->
+        <div class="quick-queries">
+            <button type="button" class="btn-quick" onclick="setQuery('SELECT * FROM CLIENTE;')">Ver Clientes</button>
+            <button type="button" class="btn-quick" onclick="setQuery('SELECT Numero_Cuenta, Saldo, Estado FROM CUENTA;')">Ver Cuentas</button>
+            <button type="button" class="btn-quick" onclick="setQuery('SELECT * FROM MOVIMIENTO;')">Ver Movimientos</button>
+        </div>
+
+        <form method="POST">
+            <textarea id="queryInput" name="query" placeholder="Escribe tu consulta SQL aquí... (Ej: SELECT * FROM CLIENTE)" required></textarea>
+            <br>
+            <button type="submit" class="btn-ejecutar">Ejecutar</button>
+        </form>
+    </div>
+
+    <!-- Sección para mostrar resultados si se ejecutó una query -->
+    {% if error %}
+        <div class="results-container error">
+            <strong>Error SQL:</strong> {{ error }}
+        </div>
+    {% endif %}
+
+    {% if resultado %}
+        <div class="results-container">
+            <h3>Resultado de la Consulta:</h3>
+            {% if columnas %}
+                <table>
+                    <thead>
+                        <tr>
+                            {% for col in columnas %}
+                                <th>{{ col }}</th>
+                            {% endfor %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for fila in resultado %}
+                            <tr>
+                                {% for dato in fila %}
+                                    <td>{{ dato }}</td>
+                                {% endfor %}
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p class="success-msg">{{ resultado }}</p>
+            {% endif %}
+        </div>
+    {% endif %}
+
+    {% if resultado %}
+            <div style="margin-top: 30px;">
+                {% if columnas %}
+                    <!-- Cabecera de resultados con el Botón de Excel -->
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                        <h3>Resultados de la Consulta</h3>
+                        <a href="/descargar-excel" class="btn-descargar">📊 Descargar en Excel</a>
+                    </div>
+                {% else %}
+                    <!-- Mensaje cuando se ejecuta un INSERT, UPDATE o DELETE exitoso -->
+                    <div class="alert-success" style="margin-top: 20px;">{{ resultado }}</div>
+                {% endif %}
+            </div>
+        {% endif %}
+
+    <!-- Script pequeño para los botones de acceso rápido -->
+    <script>
+        function setQuery(sqlText) {
+            document.getElementById('queryInput').value = sqlText;
+        }
+    </script>
+
+</body>
+</html>

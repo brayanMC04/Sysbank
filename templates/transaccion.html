@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sysbank Digital - Realizar Transacción</title>
+    <link rel="stylesheet" href="static/dashboard.css">
+    <link rel="stylesheet" href="static/transaccion.css">
+    <link rel="stylesheet" href="static/animations.css">
+</head>
+<body>
+
+    <!-- Barra de Navegación -->
+    <div class="navbar">
+        <div class="nav-brand">SYSBANK DIGITAL</div>
+        <div class="nav-links">
+            <a href="/dashboard">Dashboard</a>
+            <a href="/transaccion">Nueva Transacción</a>
+            <a href="/query">Consola SQL</a>
+            <a href="/">Cerrar Sesión</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2 class="welcome-title" style="text-align: center;">Módulo de Transacciones</h2>
+
+        <div class="form-card">
+            {% if mensaje %}
+                <div class="alert-success">{{ mensaje }}</div>
+            {% endif %}
+            {% if error %}
+                <div class="alert-error">Error: {{ error }}</div>
+            {% endif %}
+
+            <form method="POST">
+                <div class="form-group">
+                    <label for="cuenta_origen">Cuenta:</label>
+                    <select name="cuenta_origen" id="cuenta_origen" required>
+                        <option value="">Seleccione una cuenta...</option>
+                        {% for c in cuentas %}
+                            <option value="{{ c[0] }}">Cuenta: {{ c[0] }} (Saldo: ${{ "{:,.2f}".format(c[1]) }})</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="tipo_mvto">Tipo de Movimiento:</label>
+                    <select name="tipo_mvto" id="tipo_mvto" required>
+                        <option value="">Seleccione el tipo...</option>
+                        {% for t in tipos_movimiento %}
+                            <option value="{{ t[0] }}">{{ t[1] }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="valor">Valor ($):</label>
+                    <input type="number" step="0.01" name="valor" id="valor" placeholder="Ej: 50000" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="descripcion">Descripción:</label>
+                    <textarea name="descripcion" id="descripcion" rows="3" placeholder="Detalle de la transacción..."></textarea>
+                </div>
+
+                <button type="submit" class="btn-enviar">Ejecutar Transacción</button>
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>

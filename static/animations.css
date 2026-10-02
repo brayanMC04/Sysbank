@@ -1,0 +1,59 @@
+/* --- Animación de entrada suave (Fade In & Slide Up) --- */
+@keyframes fadeInSlide {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Aplicar la animación a las tarjetas, formularios y contenedores principales */
+.form-card, .query-box, .section-box, .card-balance, .form-container {
+    animation: fadeInSlide 0.5s ease-out forwards;
+}
+
+/* --- Efectos de Elevación y Hover en Tarjetas --- */
+.card-balance, .section-box, .form-card, .query-box {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-balance:hover, .section-box:hover, .form-card:hover, .query-box:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+
+/* --- Animaciones e Interacción en Botones --- */
+button, .btn-submit, .btn-ejecutar, .btn-enviar, .btn-quick {
+    transition: all 0.25s ease-in-out;
+    position: relative;
+    overflow: hidden;
+}
+
+button:active, .btn-submit:active, .btn-ejecutar:active, .btn-enviar:active {
+    transform: scale(0.97);
+}
+
+/* Efecto brillo al pasar el mouse por botones principales */
+.btn-submit:hover, .btn-ejecutar:hover, .btn-enviar:hover {
+    filter: brightness(1.05);
+    box-shadow: 0 4px 12px rgba(108, 142, 227, 0.3);
+}
+
+/* --- Interacción en Inputs y Textareas --- */
+input, select, textarea {
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+input:focus, select:focus, textarea:focus {
+    border-color: #6c8ee3 !important;
+    box-shadow: 0 0 0 4px rgba(108, 142, 227, 0.15);
+}
+
+/* --- Fondo decorativo con sutil gradiente animado o formas --- */
+body {
+    background: linear-gradient(135deg, #f8f9fa 0%, #edf2f7 100%);
+    background-attachment: fixed;
+}

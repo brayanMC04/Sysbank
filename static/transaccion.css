@@ -1,0 +1,193 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+:root {
+    --bg-deep: #030712;
+    --card-bg: rgba(15, 23, 42, 0.85);
+    --input-bg: rgba(2, 6, 23, 0.8);
+    --neon-cyan: #00f0ff;
+    --neon-purple: #7000ff;
+    --text-light: #f8fafc;
+    --text-muted: #94a3b8;
+}
+
+/* --- FORZAR FONDO OSCURO EN TODO EL DOCUMENTO --- */
+html, body {
+    background-color: var(--bg-deep) !important;
+    background-image: 
+        radial-gradient(circle at 50% 0%, rgba(112, 0, 255, 0.18) 0%, transparent 60%),
+        linear-gradient(to right, rgba(255,255,255,0.02) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255,255,255,0.02) 1px, transparent 1px) !important;
+    background-size: 100% 100%, 40px 40px, 40px 40px;
+    color: var(--text-light) !important;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+}
+/* --- BARRA DE NAVEGACIÓN --- */
+.navbar {
+    background: rgba(3, 7, 18, 0.9);
+    backdrop-filter: blur(20px);
+    border-bottom: 2px solid rgba(0, 240, 255, 0.2);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+}
+
+.nav-brand {
+    font-size: 24px;
+    font-weight: 800;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    background: linear-gradient(135deg, #00f0ff 0%, #ffffff 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.nav-links a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+    padding: 10px 16px;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+}
+
+.nav-links a:hover {
+    color: var(--neon-cyan);
+    background: rgba(0, 240, 255, 0.05);
+    border-color: rgba(0, 240, 255, 0.3);
+    box-shadow: 0 0 15px rgba(0, 240, 255, 0.2);
+}
+
+/* --- CONTENEDOR PRINCIPAL --- */
+.container {
+    max-width: 520px; /* Ancho exacto y compacto tipo tarjeta login de la referencia */
+    margin: 50px auto;
+    padding: 0 20px;
+}
+
+.welcome-title {
+    font-size: 26px;
+    font-weight: 800;
+    margin-bottom: 25px;
+    text-align: center;
+    background: linear-gradient(90deg, #00f0ff, #7000ff);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* --- CAJA ESTILO TARJETA FLOTANTE (Inspirada en la referencia con tus colores) --- */
+.section-box {
+    background: var(--card-bg);
+    backdrop-filter: blur(25px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 24px; /* Esquinas súper redondeadas idénticas a la imagen */
+    padding: 40px 35px;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.7), 
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.section-box:hover {
+    border-color: rgba(0, 240, 255, 0.4);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8), 
+                0 0 30px rgba(0, 240, 255, 0.15);
+}
+
+/* --- ETIQUETAS Y CAMPOS CON EFECTO HUNDIDO --- */
+form label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--text-muted);
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+}
+
+textarea, select, input[type="number"], input[type="text"] {
+    width: 100%;
+    background-color: var(--input-bg);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 14px; /* Campos redondeados como la imagen */
+    padding: 16px 18px;
+    color: #fff;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 14px;
+    box-sizing: border-box;
+    /* Efecto de profundidad / sombra interior hundida */
+    box-shadow: inset 3px 3px 6px rgba(0, 0, 0, 0.6), 
+                inset -2px -2px 4px rgba(255, 255, 255, 0.03);
+    transition: all 0.3s ease;
+    margin-bottom: 22px;
+}
+
+textarea:focus, select:focus, input:focus {
+    outline: none;
+    border-color: var(--neon-cyan);
+    box-shadow: inset 4px 4px 8px rgba(0, 0, 0, 0.8),
+                0 0 15px rgba(0, 240, 255, 0.3); /* Destello neón cian al escribir */
+    background: rgba(3, 7, 18, 0.95);
+}
+
+select option {
+    background-color: #0b1329;
+    color: #fff;
+    padding: 12px;
+}
+
+/* --- BOTÓN ESTILO CÁPSULA 3D (Tus colores neón) --- */
+.btn-enviar {
+    background: linear-gradient(135deg, #00f0ff 0%, #7000ff 100%);
+    color: #ffffff;
+    width: 100%;
+    padding: 16px;
+    border-radius: 30px; /* Estilo píldora idéntico al de tu referencia */
+    font-weight: 700;
+    font-size: 14px;
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    box-shadow: 0 0 25px rgba(0, 240, 255, 0.4);
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-top: 10px;
+}
+
+.btn-enviar:hover {
+    transform: translateY(-2px) scale(1.01);
+    box-shadow: 0 0 35px rgba(0, 240, 255, 0.8);
+    filter: brightness(1.2);
+}
+
+.btn-descargar {
+    background: linear-gradient(135deg, #00f0ff 0%, #7000ff 100%);
+    color: #fff;
+    padding: 10px 18px;
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 13px;
+    box-shadow: 0 0 15px rgba(0, 240, 255, 0.3);
+}
